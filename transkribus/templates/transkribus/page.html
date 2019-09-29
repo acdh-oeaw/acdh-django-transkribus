@@ -1,0 +1,58 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% load webpage_extras %}
+{% block title %}Search{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header" style="text-align: center">
+                <h1>
+                    <small>collection:</small> {{ result.col_id }}
+                    <small>document:</small> {{ result.doc_id }}
+                    <small>page:</small> {{ result.page_id }}
+                </h1>
+            </div>
+            <div class="card body">
+                <p>
+                    <li>
+                        one
+                    </li>
+                    <li>
+                        twoe
+                    </li>
+                </p>
+                <div class="card">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2>IMG</h2>
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        <img src="{{ result.img_url}}" />
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h2>TEXT</h2>
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        {% for x in result.transcript %}
+                                            {{ x }} <br />
+                                        {% endfor %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

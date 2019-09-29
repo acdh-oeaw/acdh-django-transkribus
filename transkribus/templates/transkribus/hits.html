@@ -1,0 +1,93 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% load webpage_extras %}
+{% block title %}Search{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header" style="text-align: center">
+                <h1>Fulltext Search</h1>
+            </div>
+            <div class="card body">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 col-lg-8">
+                        <form class="card card-sm" method="get" action="{% url 'transkribus:trp_hits' %}">
+                            <div class="card-body row no-gutters align-items-center">
+                                <div class="col-auto">
+                                    <i class="fas fa-search h4 text-body"></i>
+                                </div>
+                                <!--end of col-->
+                                <div class="col">
+                                    <input class="form-control form-control-lg form-control-borderless" type="search" name="query" placeholder="Search topics or keywords">
+                                </div>
+                                <!--end of col-->
+                                <div class="col-auto">
+                                    <button class="btn btn-lg btn-success" type="submit">Search</button>
+                                </div>
+                                <!--end of col-->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" style="text-align: center">
+                <h1> {{ trp_result.numResults }} Results</h1>
+            </div>
+            <div class="card body">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>refine your search</h3>
+                            </div>
+                            <div class="card-body">
+                                {% for x in trp_result.facets.facet %}
+                                    {% if x.facetMap.entry %}
+                                    <h3>
+                                        {{ x.facet_field }}
+                                    </h3>
+                                        {% for y in x.facetMap.entry %}
+                                            <li>
+                                                {{ y.key }}: {{ y.value }}
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>KWIC</h3>
+                            </div>
+                            <div class="card-body">
+                                {% for x in trp_result.pageHits.PageHit %}
+                                    <div>
+                                        {{ x.highlights|first|safe }} <br />
+                                        <ul>
+                                            <li>
+                                                Collection: {{ x.collectionIds.collectionId|first}}
+                                            </li>
+                                            <li>
+                                                Document: {{ x.docTitle }}; ID: {{ x.docId }}
+                                            </li>
+                                            <li>
+                                                Page: {{ x.pageNr }}
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'transkribus:trp_page' col_id=x.collectionIds.collectionId|first  doc_id=x.docId page_id=x.pageNr %}">go to document</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
