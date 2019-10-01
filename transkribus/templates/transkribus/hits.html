@@ -33,7 +33,8 @@
         </div>
         <div class="card">
             <div class="card-header" style="text-align: center">
-                <h1> {{ trp_result.numResults }} Results</h1>
+                <h1>
+                    {% if start != '0' %}<a href="{{new_url}}&start={{ prev }}">prev</a>{% endif %}{{ hits }} Results {% if next %}<a href="{{new_url}}&start={{ next }}">next</a>{% endif %}</h1>
             </div>
             <div class="card body">
                 <div class="row">
@@ -45,14 +46,16 @@
                             <div class="card-body">
                                 {% for x in trp_result.facets.facet %}
                                     {% if x.facetMap.entry %}
-                                    <h3>
-                                        {{ x.facet_field }}
-                                    </h3>
-                                        {% for y in x.facetMap.entry %}
-                                            <li>
-                                                {{ y.key }}: {{ y.value }}
-                                            </li>
-                                        {% endfor %}
+                                        {% if x.facet_field == 'f_title' %}
+                                            <h3>
+                                                Dokument
+                                            </h3>
+                                                {% for y in x.facetMap.entry %}
+                                                    <li>
+                                                        <a href="{{ base_url }}&filter={{ x.facet_field }}:{{y.key}}">{{ y.key }}</a>: {{ y.value }}
+                                                    </li>
+                                                {% endfor %}
+                                        {% endif %}
                                     {% endif %}
                                 {% endfor %}
                             </div>

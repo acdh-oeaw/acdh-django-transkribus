@@ -26,24 +26,40 @@ class TrpSearchResultView(TemplateView):
     def get_context_data(self, **kwargs):
         additional_filters = [f"collectionId:{col_id}", ]
         context = super().get_context_data(**kwargs)
-        additional_filters.append(self.request.GET.get('filter'))
+        if self.request.GET.get('filter'):
+            additional_filters.append(self.request.GET.get('filter'))
         print(f"additional_filters: {additional_filters}")
         query = self.request.GET.get('query')
         kwargs = {
             'query': query,
-            'filter': additional_filters,
+            'filter': set(additional_filters),
             'start': self.request.GET.get('start', '0'),
             'rows': self.request.GET.get('rows', '25')
         }
+        filterstring = "&filter=".join(additional_filters)
         try:
             result = trp_ft_search(
                 base_url, user, pw, **kwargs
             )
-            context['trp_result'] = result
         except Exception as e:
             context['trp_fetch_error'] = e
             print(e)
-        return context
+            result = None
+        if result is not None:
+            context['trp_result'] = result
+            context['hits'] = result['numResults']
+            context['rows'] = kwargs['rows']
+            context['start'] = kwargs['start']
+            context['base_url'] = f"{self.request.path}?query={query}"
+            context['new_url'] = f"{self.request.path}?query={query}&filter={filterstring}"
+            if int(context['rows']) + int(context['start']) < int(context['hits']):
+                context['next'] = int(context['rows']) + int(context['start'])
+            prev = int(context['start']) - int(context['rows'])
+            if prev >= 0:
+                context['prev'] = prev
+            else:
+                context['prev'] = 0
+            return context
 
 
 class TrpPageView(TemplateView):
