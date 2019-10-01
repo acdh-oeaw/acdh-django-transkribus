@@ -13,6 +13,7 @@ from transkribus.trp_utils import (
     trp_ft_search,
     trp_get_fulldoc_md,
     get_transcript,
+    list_documents
 )
 
 try:
@@ -75,6 +76,18 @@ class TrpSearchResultView(TemplateView):
             else:
                 context['prev'] = 0
             return context
+
+
+class TrpListView(TemplateView):
+    template_name = 'transkribus/documents.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        result = list_documents(base_url=base_url, col_id=col_id, user=user, pw=pw)
+        context['result'] = result
+        context['nr_docs'] = len(result)
+        context['col_id'] = col_id
+        return context
 
 
 class TrpPageView(TemplateView):

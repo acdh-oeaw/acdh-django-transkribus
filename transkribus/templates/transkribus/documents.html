@@ -1,0 +1,48 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% load webpage_extras %}
+{% block title %}Search{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header" style="text-align: center">
+                <h1>
+                    {{ nr_docs }} in collection {{ col_id }}
+                </h1>
+            </div>
+            <div class="card body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                Title
+                            </th>
+                            <th>
+                                Nr. of pages
+                            </th>
+                            <th>
+                                Preview
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in result %}
+                            <tr>
+                                <td>{{ x.title }}</td>
+                                <td>
+                                    {{ x.nrOfPages }}
+                                </td>
+                                <td>
+                                    <a href="{% url 'transkribus:trp_page' col_id=col_id doc_id=x.docId page_id=1 %}">
+                                        <img src="{{ x.thumbUrl }}" />
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -112,4 +112,17 @@ def get_transcript(fulldoc_md):
         )
         return md
     else:
-        return response.okcol
+        return response.ok
+
+
+def list_documents(base_url=base_url, col_id=col_id, user=user, pw=pw):
+    url = f"{base_url}/collections/{col_id}/list"
+    session_id = trp_login(user, pw, base_url=base_url)
+    headers = {
+        'cookie': "JSESSIONID={}".format(session_id),
+    }
+    response = requests.request("GET", url, headers=headers)
+    if response.ok:
+        return response.json()
+    else:
+        return response.ok
