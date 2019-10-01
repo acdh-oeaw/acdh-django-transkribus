@@ -15,6 +15,19 @@ from transkribus.trp_utils import (
     get_transcript,
 )
 
+try:
+    APIS_OSD_JS = settings.APIS_OSD_JS
+except AttributeError:
+    APIS_OSD_JS = (
+        "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.0/openseadragon.min.js"
+    )
+try:
+    APIS_OSD_IMG_PREFIX = settings.APIS_OSD_IMG_PREFIX
+except AttributeError:
+    APIS_OSD_IMG_PREFIX = (
+        "/openseadragon/images/"
+    )
+
 
 class TrpSearchView(TemplateView):
     template_name = 'transkribus/search.html'
@@ -74,4 +87,6 @@ class TrpPageView(TemplateView):
         )
         result = get_transcript(fulldoc_md)
         context['result'] = result
+        context['openseadragon_js'] = APIS_OSD_JS
+        context['openseadragon_img'] = APIS_OSD_IMG_PREFIX
         return context
