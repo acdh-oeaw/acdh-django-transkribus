@@ -51,6 +51,8 @@ class TrpSearchResultView(TemplateView):
             context['rows'] = kwargs['rows']
             context['start'] = kwargs['start']
             context['base_url'] = f"{self.request.path}?query={query}"
+            if "f_title" in filterstring:
+                context['clear_filter'] = True
             context['new_url'] = f"{self.request.path}?query={query}&filter={filterstring}"
             if int(context['rows']) + int(context['start']) < int(context['hits']):
                 context['next'] = int(context['rows']) + int(context['start'])

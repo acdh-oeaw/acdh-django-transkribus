@@ -34,7 +34,13 @@
         <div class="card">
             <div class="card-header" style="text-align: center">
                 <h1>
-                    {% if start != '0' %}<a href="{{new_url}}&start={{ prev }}">prev</a>{% endif %}{{ hits }} Results {% if next %}<a href="{{new_url}}&start={{ next }}">next</a>{% endif %}</h1>
+                    {% if start != '0' %}<a href="{{new_url}}&start={{ prev }}">prev</a>{% endif %}{{ hits }} Results {% if next %}<a href="{{new_url}}&start={{ next }}">next</a>{% endif %}
+                </h1>
+                {% if clear_filter %}
+                    <h4>
+                        <a href="{{ base_url }}">clear filter</a>
+                    </h4>
+                {% endif %}
             </div>
             <div class="card body">
                 <div class="row">
