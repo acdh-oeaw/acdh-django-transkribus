@@ -48,15 +48,19 @@ def trp_login(user, pw, base_url=base_url):
         response.ok
 
 
-def trp_ft_search(query, col_id=col_id, base_url=base_url, user=user, pw=pw):
-    url = f"{base_url}/search/fulltext?query={query}&type=LinesLc"
-    if col_id is not None:
-        url = f"{url}&filter=collectionId:{col_id}"
+def trp_ft_search(base_url=base_url, user=user, pw=pw, **kwargs):
+    url = f"{base_url}/search/fulltext"
+    if kwargs:
+        querystring = kwargs
+    else:
+        return False
+    querystring['type'] = "LinesLc"
+    print(querystring)
     session_id = trp_login(user, pw, base_url=base_url)
     headers = {
         'cookie': "JSESSIONID={}".format(session_id),
     }
-    response = requests.request("GET", url, headers=headers)
+    response = requests.request("GET", url, headers=headers, params=querystring)
     if response.ok:
         return response.json()
     else:

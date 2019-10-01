@@ -24,18 +24,25 @@ class TrpSearchResultView(TemplateView):
     template_name = 'transkribus/hits.html'
 
     def get_context_data(self, **kwargs):
+        additional_filters = [f"collectionId:{col_id}", ]
         context = super().get_context_data(**kwargs)
+        additional_filters.append(self.request.GET.get('filter'))
+        print(f"additional_filters: {additional_filters}")
         query = self.request.GET.get('query')
-        if query is not None:
-            try:
-                result = trp_ft_search(
-                    query, col_id=col_id, base_url=base_url, user=user, pw=pw
-                )
-            except Exception as e:
-                context['trp_fetch_error'] = e
-                print(e)
-            else:
-                context['trp_result'] = result
+        kwargs = {
+            'query': query,
+            'filter': additional_filters,
+            'start': self.request.GET.get('start', '0'),
+            'rows': self.request.GET.get('rows', '25')
+        }
+        try:
+            result = trp_ft_search(
+                base_url, user, pw, **kwargs
+            )
+            context['trp_result'] = result
+        except Exception as e:
+            context['trp_fetch_error'] = e
+            print(e)
         return context
 
 
