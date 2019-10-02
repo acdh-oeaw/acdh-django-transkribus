@@ -10,23 +10,17 @@
             </div>
             <div class="card body">
                 <div class="row justify-content-center">
-                    <div class="col-12 col-md-10 col-lg-8">
-                        <form class="card card-sm" method="get" action="{% url 'transkribus:trp_hits' %}">
-                            <div class="card-body row no-gutters align-items-center">
-                                <div class="col-auto">
-                                    <i class="fas fa-search h4 text-body"></i>
-                                </div>
-                                <!--end of col-->
-                                <div class="col">
-                                    <input class="form-control form-control-lg form-control-borderless" type="search" name="query" placeholder="Search topics or keywords">
-                                </div>
-                                <!--end of col-->
-                                <div class="col-auto">
-                                    <button class="btn btn-lg btn-success" type="submit">Search</button>
-                                </div>
-                                <!--end of col-->
-                            </div>
-                        </form>
+                    <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                      <form method="get" action="{% url 'transkribus:trp_hits' %}">
+                        <div class="form-row">
+                          <div class="col-12 col-md-9 mb-2 mb-md-0">
+                            <input type="search" class="form-control form-control-lg" placeholder="Volltextsuche über alle Zeitungen" name="query">
+                          </div>
+                          <div class="col-12 col-md-3">
+                            <button type="submit" class="btn btn-block btn-lg btn-primary">Go!</button>
+                          </div>
+                        </div>
+                      </form>
                     </div>
                     <!--end of col-->
                 </div>

@@ -26,7 +26,7 @@ try:
     APIS_OSD_IMG_PREFIX = settings.APIS_OSD_IMG_PREFIX
 except AttributeError:
     APIS_OSD_IMG_PREFIX = (
-        "/openseadragon/images/"
+        "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.0/images/"
     )
 
 
@@ -59,7 +59,7 @@ class TrpSearchResultView(TemplateView):
             context['trp_fetch_error'] = e
             print(e)
             result = None
-        if result is not None:
+        if result:
             context['trp_result'] = result
             context['hits'] = result['numResults']
             context['rows'] = kwargs['rows']

@@ -11,26 +11,25 @@ nsmap = {
 
 try:
     user = settings.TRANSKRIBUS['user']
-except KeyError:
+except AttributeError:
     print("no TRANSKRIBUS user set in the project's settings file")
     user = "user"
 
 try:
     pw = settings.TRANSKRIBUS['pw']
-except KeyError:
+except AttributeError:
     print("no TRANSKRIBUS pw set in the project's settings file")
     pw = "pw"
 
 try:
     col_id = settings.TRANSKRIBUS['col_id']
-except KeyError:
+except AttributeError:
     print("no TRANSKRIBUS col_id set in the project's settings file")
     col_id = None
 
-
 try:
     base_url = settings.TRANSKRIBUS['base_url']
-except KeyError:
+except AttributeError:
     base_url = "https://transkribus.eu/TrpServer/rest"
 
 
