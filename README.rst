@@ -1,26 +1,25 @@
 Readme
 ======
 
-acdh-django-transkribus
-------------
-
-a django-app for transkribus
-
+.. image:: https://badge.fury.io/py/acdh-django-transkribus.svg
+    :target: https://badge.fury.io/py/acdh-django-transkribus
 
 A django app for interacting with the [Transkribus-API](https://transkribus.eu/wiki/index.php/REST_Interface) to search and read documents hosted and processed by [Transkribus](https://transkribus.eu/Transkribus/)
+
 
 Installation
 ------------
 
     pip install acdh-django-transkribus
 
+
 Use:
 ------------
 
-TRANSKRIBUS-Settings
+Add your user name and password and the ID of the collection you'd like to expose by the current application's settings file like shown below:
 
-Basically your user name and password and the ID of the collection you'd like to expose by the current application.
 
+.. code-block:: python
 
     TRANSKRIBUS = {
         "user": "mytranskribususer@whatever.com",
@@ -28,10 +27,3 @@ Basically your user name and password and the ID of the collection you'd like to
         "col_id": "43497",
         "base_url": "https://transkribus.eu/TrpServer/rest"
     }
-
-
-
-Licensing
----------
-
-All code unless otherwise noted is licensed under the terms of the MIT License (MIT). Please refer to the file LICENSE in the root directory of this repository.
