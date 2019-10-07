@@ -85,6 +85,25 @@ def trp_ft_search(base_url=base_url, user=user, pw=pw, **kwargs):
         return response.ok
 
 
+def trp_get_doc_md(doc_id, base_url=base_url, col_id=col_id, user=user, pw=pw):
+    """ Helper function to interact with TRANSKRIBUS document metadata endpoint
+        :param user: Your TRANSKRIBUS user name, e.g. my.mail@whatever.com
+        :param pw: Your TRANSKRIBUS password
+        :param base_url: The base URL of the TRANSKRIBUS API
+        :col_id: The ID of a TRANSKRIBUS Collection
+        :doc_id: The ID of TRANSKRIBUS Document
+        :page_id: The page number of the Document
+        :return: A dict with basic metadata of a transkribus Document
+    """
+    url = f"{base_url}/collections/{col_id}/{doc_id}/metadata"
+    session_id = trp_login(user, pw, base_url=base_url)
+    headers = {
+        'cookie': "JSESSIONID={}".format(session_id),
+    }
+    response = requests.request("GET", url, headers=headers)
+    return response.json()
+
+
 def trp_get_fulldoc_md(doc_id, base_url=base_url, col_id=col_id, page_id="1", user=user, pw=pw):
     """ Helper function to interact with TRANSKRIBUS document endpoint
         :param user: Your TRANSKRIBUS user name, e.g. my.mail@whatever.com
@@ -116,6 +135,9 @@ def trp_get_fulldoc_md(doc_id, base_url=base_url, col_id=col_id, page_id="1", us
         result["thumb_url"] = doc_xml.xpath('./thumbUrl/text()')[0]
         result["img_url"] = doc_xml.xpath('./url/text()')[0]
         result["img_url"] = doc_xml.xpath('./url/text()')[0]
+        result["extra_info"] = trp_get_doc_md(
+            doc_id, base_url=base_url, col_id=col_id, user=user, pw=pw
+        )
         return result
     else:
         return response.ok

@@ -7,11 +7,37 @@
     <div class="container">
         <div class="card">
             <div class="card-header" style="text-align: center">
-                <h1>
-                    <small>collection:</small> {{ result.col_id }}
-                    <small>document:</small> {{ result.doc_id }}
-                    <small>page:</small> {{ result.page_id }}
-                </h1>
+                <div class="row">
+                    <div class="col-md-2">
+                        {% if prev %}
+                            <h2>
+                                <a href="{{ first_page }}">
+                                    <<
+                                </a>
+                                <br  />
+                                <a href="{{ prev }}">
+                                    <
+                                </a>
+                            </h2>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <h2> {{ result.extra_info.title }} <small> {{ result.page_id }} / {{ result.extra_info.nrOfPages }}</small></h2>
+                    </div>
+                <div class="col-md-2">
+                    <h2>
+                        {% if next %}
+                        <a href="{{ last_page }}" style="float:right">
+                            >>
+                        </a><br  />
+                        <a href="{{ next }}" style="float:right">
+                            >
+                        </a>
+
+                    </h2>
+                    {% endif %}
+                </div>
+            </div>
             </div>
             <div class="card body">
                 <div class="card">

@@ -1,7 +1,6 @@
 from django.shortcuts import render
-
-# Create your views here.
 from django.conf import settings
+from django.urls import reverse
 from django.views.generic import TemplateView
 
 from transkribus.trp_utils import (
@@ -99,7 +98,36 @@ class TrpPageView(TemplateView):
             base_url=base_url, user=user, pw=pw, **self.kwargs
         )
         result = get_transcript(fulldoc_md)
+        page_id = int(self.kwargs['page_id'])
         context['result'] = result
+        context['first_page'] = reverse('transkribus:trp_page', kwargs={
+            'col_id': result['col_id'],
+            'doc_id': result['doc_id'],
+            'page_id': '1'
+        })
+        context['last_page'] = reverse('transkribus:trp_page', kwargs={
+            'col_id': result['col_id'],
+            'doc_id': result['doc_id'],
+            'page_id': result['extra_info']['nrOfPages']
+        })
+        if page_id > 1:
+            context['prev'] = reverse('transkribus:trp_page', kwargs={
+                'col_id': result['col_id'],
+                'doc_id': result['doc_id'],
+                'page_id': f"{page_id-1}"
+            })
+        else:
+            context['prev'] = None
+
+        if page_id < int(result['extra_info']['nrOfPages']):
+            context['next'] = reverse('transkribus:trp_page', kwargs={
+                'col_id': result['col_id'],
+                'doc_id': result['doc_id'],
+                'page_id': f"{page_id+1}"
+            })
+        else:
+            context['next'] = None
+
         context['openseadragon_js'] = APIS_OSD_JS
         context['openseadragon_img'] = APIS_OSD_IMG_PREFIX
         return context
