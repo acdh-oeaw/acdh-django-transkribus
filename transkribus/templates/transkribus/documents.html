@@ -1,8 +1,9 @@
 {% extends "webpage/base.html" %}
 {% load staticfiles %}
-{% load webpage_extras %}
+{% load transkribus_extras %}
 {% block title %}Search{% endblock %}
 {% block content %}
+{% trp_lang as my_lang %}
     <div class="container">
         <div class="card">
             <div class="card-header" style="text-align: center">
@@ -15,13 +16,13 @@
                     <thead>
                         <tr>
                             <th>
-                                Title
+                                {{ my_lang.docs.title_col }}
                             </th>
                             <th>
-                                Nr. of pages
+                                {{ my_lang.docs.page_nr_col }}
                             </th>
                             <th>
-                                Preview
+                                {{ my_lang.docs.preview_col }}
                             </th>
                         </tr>
                     </thead>

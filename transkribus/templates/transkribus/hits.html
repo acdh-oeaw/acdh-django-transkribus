@@ -1,8 +1,10 @@
 {% extends "webpage/base.html" %}
 {% load staticfiles %}
-{% load webpage_extras %}
+{% load transkribus_extras %}
 {% block title %}Search{% endblock %}
 {% block content %}
+{% trp_lang as my_lang %}
+
     <div class="container">
         <div class="card">
             <div class="card-header" style="text-align: center">
@@ -14,14 +16,15 @@
                       <form method="get" action="{% url 'transkribus:trp_hits' %}">
                         <div class="form-row">
                           <div class="col-12 col-md-9 mb-2 mb-md-0">
-                            <input type="search" class="form-control form-control-lg" placeholder="Volltextsuche über alle Zeitungen" name="query">
+                            <input type="search" class="form-control form-control-lg" placeholder="{{ my_lang.search_form.prefil}}" name="query">
                           </div>
                           <div class="col-12 col-md-3">
-                            <button type="submit" class="btn btn-block btn-lg btn-primary">Go!</button>
+                            <button type="submit" class="btn btn-block btn-lg btn-primary">{{ my_lang.search_form.button }}</button>
                           </div>
                         </div>
                       </form>
                     </div>
+                    <!--end of col-->
                 </div>
             </div>
         </div>
@@ -41,14 +44,14 @@
                     <div class="col-4">
                         <div class="card">
                             <div class="card-header">
-                                <h3>refine your search</h3>
+                                <h3>{{ my_lang.hits.facet_header }}</h3>
                             </div>
                             <div class="card-body">
                                 {% for x in trp_result.facets.facet %}
                                     {% if x.facetMap.entry %}
                                         {% if x.facet_field == 'f_title' %}
                                             <h3>
-                                                Dokument
+                                                {{ my_lang.hits.facet_doc_title }}
                                             </h3>
                                                 {% for y in x.facetMap.entry %}
                                                     <li>
@@ -64,7 +67,7 @@
                     <div class="col-8">
                         <div class="card">
                             <div class="card-header">
-                                <h3>KWIC</h3>
+                                <h3>{{ my_lang.hits.kwic_header }}</h3>
                             </div>
                             <div class="card-body">
                                 {% for x in trp_result.pageHits.PageHit %}
@@ -72,16 +75,16 @@
                                         {{ x.highlights|first|safe }} <br />
                                         <ul>
                                             <li>
-                                                Collection: {{ x.collectionIds.collectionId|first}}
+                                                {{ my_lang.hits.result_col }}: {{ x.collectionIds.collectionId|first}}
                                             </li>
                                             <li>
-                                                Document: {{ x.docTitle }}; ID: {{ x.docId }}
+                                                {{ my_lang.hits.result_doc }}: {{ x.docTitle }}; ID: {{ x.docId }}
                                             </li>
                                             <li>
-                                                Page: {{ x.pageNr }}
+                                                {{ my_lang.hits.result_page }}: {{ x.pageNr }}
                                             </li>
                                             <li>
-                                                <a href="{% url 'transkribus:trp_page' col_id=x.collectionIds.collectionId|first  doc_id=x.docId page_id=x.pageNr %}">go to document</a>
+                                                <a href="{% url 'transkribus:trp_page' col_id=x.collectionIds.collectionId|first  doc_id=x.docId page_id=x.pageNr %}">{{ my_lang.hits.result_link }}</a>
                                             </li>
                                         </ul>
                                     </div>

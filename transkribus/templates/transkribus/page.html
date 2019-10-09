@@ -1,8 +1,9 @@
 {% extends "webpage/base.html" %}
 {% load staticfiles %}
-{% load webpage_extras %}
+{% load transkribus_extras %}
 {% block title %}Search{% endblock %}
 {% block content %}
+{% trp_lang as my_lang %}
 <script src="{{ openseadragon_js }}"></script>
     <div class="container">
         <div class="card">
@@ -45,7 +46,7 @@
                         <div class="col-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <h2>IMG</h2>
+                                    <h2>{{ my_lang.page.img_col }}</h2>
                                 </div>
                                 <div class="card-body" id="iiif" style="width: 100%; height: 800px">
                                     <script type="text/javascript">
@@ -64,7 +65,7 @@
                         <div class="col-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <h2>TEXT</h2>
+                                    <h2>{{ my_lang.page.text_col }}</h2>
                                 </div>
                                 <div class="card-body">
                                     <p>

@@ -1,12 +1,14 @@
 {% extends "webpage/base.html" %}
 {% load staticfiles %}
-{% load webpage_extras %}
+{% load transkribus_extras %}
 {% block title %}Search{% endblock %}
 {% block content %}
+{% trp_lang as my_lang %}
+
     <div class="container">
         <div class="card">
             <div class="card-header" style="text-align: center">
-                <h1>Fulltext Search</h1>
+                <h1>{{ my_lang.search_header.header }}</h1>
             </div>
             <div class="card body">
                 <div class="row justify-content-center">
@@ -14,10 +16,10 @@
                       <form method="get" action="{% url 'transkribus:trp_hits' %}">
                         <div class="form-row">
                           <div class="col-12 col-md-9 mb-2 mb-md-0">
-                            <input type="search" class="form-control form-control-lg" placeholder="Volltextsuche über alle Zeitungen" name="query">
+                            <input type="search" class="form-control form-control-lg" placeholder="{{ my_lang.search_form.prefil}}" name="query">
                           </div>
                           <div class="col-12 col-md-3">
-                            <button type="submit" class="btn btn-block btn-lg btn-primary">Go!</button>
+                            <button type="submit" class="btn btn-block btn-lg btn-primary">{{ my_lang.search_form.button }}</button>
                           </div>
                         </div>
                       </form>

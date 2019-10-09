@@ -27,3 +27,38 @@ Add your user name and password and the ID of the collection you'd like to expos
         "col_id": "43497",
         "base_url": "https://transkribus.eu/TrpServer/rest"
     }
+
+
+For custom translations you'd need to add following dict to your settings:
+
+
+.. code-block:: python
+
+    TRANSKRIBUS_TRANSLATIONS_DEFAULT = {
+        'search_form': {
+            'prefil': 'search in all documents',
+            'button': 'Go!'
+        },
+        'search_header': {
+            'header': 'Fulltext Search'
+        },
+        'hits': {
+            'facet_header': 'refine your search',
+            'facet_doc_title': 'Document',
+            'result_header': 'Results',
+            'kwic_header': 'KWIC',
+            'result_col': 'Collection',
+            'result_doc': 'Document',
+            'result_page': 'Page',
+            'result_link': 'go to document'
+        },
+        'page': {
+            'img_col': 'IMG',
+            'text_col': 'TEXT'
+        },
+        'docs': {
+            'title_col': 'Title',
+            'page_nr_col': 'Nr. of pages',
+            'preview_col': 'Preview'
+        }
+    }
