@@ -23,7 +23,7 @@
                         {% endif %}
                     </div>
                     <div class="col-md-8">
-                        <h2> {{ result.extra_info.title }} <small> {{ result.page_id }} / {{ result.extra_info.nrOfPages }}</small></h2>
+                        <h2> <a href="{% url 'transkribus:trp_document' col_id=col_id doc_id=doc_id %}">{{ result.extra_info.title }}</a> <small> {{ result.page_id }} / {{ result.extra_info.nrOfPages }}</small></h2>
                     </div>
                 <div class="col-md-2">
                     <h2>

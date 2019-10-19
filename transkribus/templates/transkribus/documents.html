@@ -8,8 +8,10 @@
         <div class="card">
             <div class="card-header" style="text-align: center">
                 <h1>
-                    {{ nr_docs }} in collection {{ col_id }}
+                    {{ collection.colName }}
                 </h1>
+                <h3>{{ nr_docs }} {{ my_lang.docs.doc_plural }}</h3>
+                <h4>{{ collection.description }}</h4>
             </div>
             <div class="card body">
                 <table class="table">
@@ -29,12 +31,16 @@
                     <tbody>
                         {% for x in result %}
                             <tr>
-                                <td>{{ x.title }}</td>
+                                <td>
+                                    <a href="{% url 'transkribus:trp_page' col_id=col_id doc_id=x.docId page_id=1 %}">
+                                        {{ x.title }}
+                                    </a>
+                                </td>
                                 <td>
                                     {{ x.nrOfPages }}
                                 </td>
                                 <td>
-                                    <a href="{% url 'transkribus:trp_page' col_id=col_id doc_id=x.docId page_id=1 %}">
+                                    <a href="{% url 'transkribus:trp_document' col_id=col_id doc_id=x.docId %}">
                                         <img src="{{ x.thumbUrl }}" />
                                     </a>
                                 </td>

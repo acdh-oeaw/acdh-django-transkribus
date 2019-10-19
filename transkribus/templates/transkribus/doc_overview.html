@@ -1,0 +1,29 @@
+{% extends "webpage/base.html" %}
+{% load staticfiles %}
+{% load transkribus_extras %}
+{% block title %}Search{% endblock %}
+{% block content %}
+{% trp_lang as my_lang %}
+    <div class="container">
+        <div class="card">
+            <div class="card-header" style="text-align: center">
+                <h1>
+                    <a href="{% url 'transkribus:trp_page' col_id=col_id doc_id=doc_id page_id=1 %}">{{ doc_md.trp_return.md.title }}</a>
+                </h1>
+                <h3>{{ nr_docs }} {{ my_lang.docs.doc_plural }}</h3>
+                <h4>{{ collection.description }}</h4>
+            </div>
+            <div class="card body">
+                <ul>
+                    {% for x in doc_md.pages %}
+                        <li>
+                            <a href="{% url 'transkribus:trp_page' col_id=col_id doc_id=doc_id page_id=x.page_nr %}"><img src="{{x.thumb }}" /></a>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

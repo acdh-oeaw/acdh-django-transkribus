@@ -104,6 +104,38 @@ def trp_get_doc_md(doc_id, base_url=base_url, col_id=col_id, user=user, pw=pw):
     return response.json()
 
 
+def trp_get_doc_overview_md(doc_id, base_url=base_url, col_id=col_id, user=user, pw=pw):
+    """ Helper function to interact with TRANSKRIBUS document endpoint
+        :param user: Your TRANSKRIBUS user name, e.g. my.mail@whatever.com
+        :param pw: Your TRANSKRIBUS password
+        :param base_url: The base URL of the TRANSKRIBUS API
+        :col_id: The ID of a TRANSKRIBUS Collection
+        :doc_id: The ID of TRANSKRIBUS Document
+        :return: A dict with basic metadata of a transkribus Document
+    """
+    url = f"{base_url}/collections/{col_id}/{doc_id}/fulldoc"
+    session_id = trp_login(user, pw, base_url=base_url)
+    headers = {
+        'cookie': "JSESSIONID={}".format(session_id),
+    }
+    response = requests.request("GET", url, headers=headers)
+    if response.ok:
+        result = {}
+        result["trp_return"] = response.json()
+        page_list = result["trp_return"]["pageList"]["pages"]
+        result["pages"] = [
+            {
+                "page_id": x['pageId'],
+                "doc_id": x['docId'],
+                "page_nr": x['pageNr'],
+                "thumb": x['thumbUrl']
+            } for x in page_list
+        ]
+        return result
+    else:
+        return response.ok
+
+
 def trp_get_fulldoc_md(doc_id, base_url=base_url, col_id=col_id, page_id="1", user=user, pw=pw):
     """ Helper function to interact with TRANSKRIBUS document endpoint
         :param user: Your TRANSKRIBUS user name, e.g. my.mail@whatever.com

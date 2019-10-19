@@ -12,7 +12,8 @@ from transkribus.trp_utils import (
     trp_ft_search,
     trp_get_fulldoc_md,
     get_transcript,
-    list_documents
+    list_documents,
+    trp_get_doc_overview_md
 )
 
 try:
@@ -83,9 +84,26 @@ class TrpListView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         result = list_documents(base_url=base_url, col_id=col_id, user=user, pw=pw)
+        try:
+            context['collection'] = result[0]['collectionList']['colList'][0]
+        except IndexError:
+            context['collection'] = None
         context['result'] = result
         context['nr_docs'] = len(result)
         context['col_id'] = col_id
+        return context
+
+
+class TrpDocumentView(TemplateView):
+    template_name = 'transkribus/doc_overview.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['doc_md'] = trp_get_doc_overview_md(
+            base_url=base_url, user=user, pw=pw, **self.kwargs
+        )
+        context['col_id'] = self.kwargs['col_id']
+        context['doc_id'] = self.kwargs['doc_id']
         return context
 
 
