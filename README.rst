@@ -24,8 +24,7 @@ Add your user name and password and the ID of the collection you'd like to expos
     TRANSKRIBUS = {
         "user": "mytranskribususer@whatever.com",
         "pw": "mytranskribuspassword",
-        "col_id": "43497",
-        "base_url": "https://transkribus.eu/TrpServer/rest"
+        "col_id": "43497"
     }
 
 
