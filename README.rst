@@ -33,7 +33,7 @@ For custom translations you'd need to add following dict to your settings:
 
 .. code-block:: python
 
-    TRANSKRIBUS_TRANSLATIONS_DEFAULT = {
+    TRANSKRIBUS_TRANSLATIONS = {
         'search_form': {
             'prefil': 'search in all documents',
             'button': 'Go!'
@@ -58,6 +58,10 @@ For custom translations you'd need to add following dict to your settings:
         'docs': {
             'title_col': 'Title',
             'page_nr_col': 'Nr. of pages',
-            'preview_col': 'Preview'
+            'preview_col': 'Preview',
+            'doc_singular': 'Document',
+            'doc_plural': 'Documents',
+            'page_singular': 'Page',
+            'page_plural': 'Pages'
         }
     }
