@@ -30,13 +30,6 @@ except (AttributeError, KeyError) as e:
     print(e)
     col_id = None
 
-try:
-    base_url = settings.TRANSKRIBUS['base_url']
-except (AttributeError, KeyError) as e:
-    print("no TRANSKRIBUS base_url set in the project's settings file")
-    print(e)
-    base_url = "https://transkribus.eu/TrpServer/rest"
-
 
 def trp_login(user, pw, base_url=base_url):
     """ log in function
