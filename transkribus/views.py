@@ -13,7 +13,8 @@ from transkribus.trp_utils import (
     trp_get_fulldoc_md,
     get_transcript,
     list_documents,
-    trp_get_doc_overview_md
+    trp_get_doc_overview_md,
+    crowd_base_url
 )
 
 try:
@@ -104,6 +105,11 @@ class TrpDocumentView(TemplateView):
         )
         context['col_id'] = self.kwargs['col_id']
         context['doc_id'] = self.kwargs['doc_id']
+        context['edit_link'] = crowd_base_url.format(
+            self.kwargs['col_id'],
+            self.kwargs['doc_id'],
+            '1'
+        )
         return context
 
 
@@ -148,4 +154,9 @@ class TrpPageView(TemplateView):
 
         context['openseadragon_js'] = APIS_OSD_JS
         context['openseadragon_img'] = APIS_OSD_IMG_PREFIX
+        context['edit_link'] = crowd_base_url.format(
+            self.kwargs['col_id'],
+            self.kwargs['doc_id'],
+            page_id
+        )
         return context

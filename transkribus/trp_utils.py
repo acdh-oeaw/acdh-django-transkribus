@@ -8,6 +8,7 @@ base_url = "https://transkribus.eu/TrpServer/rest"
 nsmap = {
     "page": "http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15"
 }
+crowd_base_url = "https://transkribus.eu/r/read/sandbox/application/?colId={}&docId={}&pageId={}"
 
 try:
     user = settings.TRANSKRIBUS['user']

@@ -1,16 +1,24 @@
 {% extends "webpage/base.html" %}
 {% load staticfiles %}
 {% load transkribus_extras %}
-{% block title %}Search{% endblock %}
+{% block title %}
+    {{ doc_md.trp_return.md.title }}
+{% endblock %}
 {% block content %}
 {% trp_lang as my_lang %}
     <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'transkribus:trp_docs' %}">{{ my_lang.docs.doc_plural }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ doc_md.trp_return.md.title }}</li>
+            </ol>
+        </nav>
         <div class="card">
             <div class="card-header" style="text-align: center">
                 <h1>
                     <a href="{% url 'transkribus:trp_page' col_id=col_id doc_id=doc_id page_id=1 %}">{{ doc_md.trp_return.md.title }}</a>
                 </h1>
-                <h3>{{ nr_docs }} {{ my_lang.docs.doc_plural }}</h3>
+                <h3>{{ doc_md.trp_return.md.nrOfPages }} {{ my_lang.docs.page_plural }}</h3>
                 <h4>{{ collection.description }}</h4>
             </div>
             <div class="card body">

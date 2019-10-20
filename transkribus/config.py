@@ -27,7 +27,9 @@ TRANSKRIBUS_TRANSLATIONS_DEFAULT = {
         'page_nr_col': 'Nr. of pages',
         'preview_col': 'Preview',
         'doc_singular': 'Document',
-        'doc_plural': 'Documents'
+        'doc_plural': 'Documents',
+        'page_singular': 'Page',
+        'page_plural': 'Pages'
     }
 }
 

@@ -1,11 +1,20 @@
 {% extends "webpage/base.html" %}
 {% load staticfiles %}
 {% load transkribus_extras %}
-{% block title %}Search{% endblock %}
+{% block title %}
+    {{ result.extra_info.title }} {{ result.page_id }} / {{ result.extra_info.nrOfPages }}
+{% endblock %}
 {% block content %}
 {% trp_lang as my_lang %}
 <script src="{{ openseadragon_js }}"></script>
     <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'transkribus:trp_docs' %}">{{ my_lang.docs.doc_plural }}</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'transkribus:trp_document' col_id=col_id doc_id=doc_id %}">{{ result.extra_info.title }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ result.page_id }}</li>
+            </ol>
+        </nav>
         <div class="card">
             <div class="card-header" style="text-align: center">
                 <div class="row">
@@ -13,26 +22,34 @@
                         {% if prev %}
                             <h2>
                                 <a href="{{ first_page }}">
-                                    <<
+                                    <i data-feather="chevrons-left"></i>
                                 </a>
                                 <br  />
                                 <a href="{{ prev }}">
-                                    <
+                                    <i data-feather="chevron-left"></i>
                                 </a>
                             </h2>
                         {% endif %}
                     </div>
                     <div class="col-md-8">
-                        <h2> <a href="{% url 'transkribus:trp_document' col_id=col_id doc_id=doc_id %}">{{ result.extra_info.title }}</a> <small> {{ result.page_id }} / {{ result.extra_info.nrOfPages }}</small></h2>
+                        <h2>
+                            <a href="{% url 'transkribus:trp_document' col_id=col_id doc_id=doc_id %}">{{ result.extra_info.title }}</a>
+                            <small> {{ result.page_id }} / {{ result.extra_info.nrOfPages }}</small>
+                        </h2>
+                        <h4>
+                            <a href="{{ edit_link }}">
+                                <i data-feather="edit"></i>
+                            </a>
+                        </h4>
                     </div>
                 <div class="col-md-2">
                     <h2>
                         {% if next %}
                         <a href="{{ last_page }}" style="float:right">
-                            >>
+                            <i data-feather="chevrons-right"></i>
                         </a><br  />
                         <a href="{{ next }}" style="float:right">
-                            >
+                            <i data-feather="chevron-right"></i>
                         </a>
 
                     </h2>

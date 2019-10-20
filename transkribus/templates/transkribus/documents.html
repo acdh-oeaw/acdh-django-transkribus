@@ -5,6 +5,13 @@
 {% block content %}
 {% trp_lang as my_lang %}
     <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                    {{ my_lang.docs.doc_plural }}
+                </li>
+            </ol>
+        </nav>
         <div class="card">
             <div class="card-header" style="text-align: center">
                 <h1>
