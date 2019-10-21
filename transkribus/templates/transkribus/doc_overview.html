@@ -13,26 +13,22 @@
                 <li class="breadcrumb-item active" aria-current="page">{{ doc_md.trp_return.md.title }}</li>
             </ol>
         </nav>
-        <div class="card">
+        <div class="card" class="transkribus_collection-overview">
             <div class="card-header" style="text-align: center">
-                <h1>
+                <h1 class="transkribus_collection-title">
                     <a href="{% url 'transkribus:trp_page' col_id=col_id doc_id=doc_id page_id=1 %}">{{ doc_md.trp_return.md.title }}</a>
                 </h1>
-                <h3>{{ doc_md.trp_return.md.nrOfPages }} {{ my_lang.docs.page_plural }}</h3>
-                <h4>{{ collection.description }}</h4>
+                <h3 class="transkribus_collection-pagecount">{{ doc_md.trp_return.md.nrOfPages }} {{ my_lang.docs.page_plural }}</h3>
+                <h4 class="transkribus_collection-description">{{ collection.description }}</h4>
             </div>
-            <div class="row">
-
+            <div class="row transkribus_thumbnails">
                     {% for x in doc_md.pages %}
-                    <div class="col-lg-3 col-md-4 col-6">
+                    <div class="col-lg-3 col-md-4 col-6 transkribus_thumbnail">
                         <a href="{% url 'transkribus:trp_page' col_id=col_id doc_id=doc_id page_id=x.page_nr %}" class="d-block mb-4 h-100">
                             <img class="img-fluid" src="{{x.thumb }}" title="Seite {{x.page_nr}}">
                         </a>
                     </div>
                     {% endfor %}
-
-
-
             </div>
         </div>
     </div>
