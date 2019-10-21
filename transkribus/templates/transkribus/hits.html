@@ -8,7 +8,7 @@
     <div class="container">
         <div class="card">
             <div class="card-header" style="text-align: center">
-                <h1>Fulltext Search</h1>
+                <h1>{{ my_lang.search_header.header }}</h1>
             </div>
             <div class="card body">
                 <div class="row justify-content-center">
@@ -31,7 +31,7 @@
         <div class="card">
             <div class="card-header" style="text-align: center">
                 <h1>
-                    {% if start != '0' %}<a href="{{new_url}}&start={{ prev }}">prev</a>{% endif %}{{ hits }} Results {% if next %}<a href="{{new_url}}&start={{ next }}">next</a>{% endif %}
+                    {% if start != '0' %}<a href="{{new_url}}&start={{ prev }}">{{ my_lang.hits.prev }} </a>{% endif %}{{ hits }} {{ my_lang.hits.hits }} {% if next %}<a href="{{new_url}}&start={{ next }}">{{ my_lang.hits.next }}</a>{% endif %}
                 </h1>
                 {% if clear_filter %}
                     <h4>

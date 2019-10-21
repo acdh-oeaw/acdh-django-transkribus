@@ -16,7 +16,10 @@ TRANSKRIBUS_TRANSLATIONS_DEFAULT = {
         'result_col': 'Collection',
         'result_doc': 'Document',
         'result_page': 'Page',
-        'result_link': 'go to document'
+        'result_link': 'go to document',
+        'hits': 'hits',
+        'prev': 'prev',
+        'next': 'next'
     },
     'page': {
         'img_col': 'IMG',
