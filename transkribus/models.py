@@ -1,8 +1,11 @@
 from django.db import models
+from django.urls import reverse
 
 from transkribus.trp_utils import (
     trp_get_doc_overview_md,
-    crowd_base_url
+    crowd_base_url,
+    list_documents,
+    col_id
 )
 
 
@@ -35,3 +38,43 @@ class TrpBaseModel(models.Model):
             print(e)
             result = None
         return result
+
+    def trp_fetch_documents(self):
+        try:
+            result = list_documents()
+        except Exception as e:
+            print(e)
+            result = None
+        return result
+
+    @classmethod
+    def trp_get_docs_url(self):
+        return reverse('transkribus:trp_docs')
+
+    def trp_get_document_url(self):
+        return reverse(
+            'transkribus:trp_docs',
+            kwargs={
+                'col_id': self.col_id,
+                'doc_id': self.doc_id
+            }
+        )
+
+    def trp_get_document_url(self):
+        return reverse(
+            'transkribus:trp_docs',
+            kwargs={
+                'col_id': self.col_id,
+                'doc_id': self.doc_id
+            }
+        )
+
+    def trp_get_page_url(self):
+        return reverse(
+            'transkribus:trp_docs',
+            kwargs={
+                'col_id': self.col_id,
+                'doc_id': self.doc_id,
+                'page_id': self.page_id
+            }
+        )
