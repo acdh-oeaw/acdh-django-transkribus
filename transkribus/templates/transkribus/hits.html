@@ -30,13 +30,21 @@
         </div>
         <div class="card transkribus_hits-container">
             <div class="card-header" style="text-align: center">
-                <h1>
-                    {% if start != '0' %}<a href="{{new_url}}&start={{ prev }}">{{ my_lang.hits.prev }} </a>{% endif %}{{ hits }} {{ my_lang.hits.hits }} {% if next %}<a href="{{new_url}}&start={{ next }}">{{ my_lang.hits.next }}</a>{% endif %}
-                </h1>
-                {% if clear_filter %}
-                    <h4>
-                        <a href="{{ base_url }}">clear filter</a>
-                    </h4>
+                {% if 'query' in request.GET %}
+                    <h1>
+                        {% if start != '0' %}
+                            <a href="{{new_url}}&start={{ prev }}">{{ my_lang.hits.prev }} </a>
+                        {% endif %}
+                        {{ hits }} {{ my_lang.hits.hits }}
+                        {% if next %}
+                            <a href="{{new_url}}&start={{ next }}">{{ my_lang.hits.next }}</a>
+                        {% endif %}
+                    </h1>
+                    {% if clear_filter %}
+                        <h4>
+                            <a href="{{ base_url }}">clear filter</a>
+                        </h4>
+                    {% endif %}
                 {% endif %}
             </div>
             <div class="card body">
