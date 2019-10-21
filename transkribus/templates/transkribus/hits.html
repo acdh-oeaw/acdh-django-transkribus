@@ -6,7 +6,7 @@
 {% trp_lang as my_lang %}
 
     <div class="container">
-        <div class="card">
+        <div class="card transkribus_search-form">
             <div class="card-header" style="text-align: center">
                 <h1>{{ my_lang.search_header.header }}</h1>
             </div>
@@ -19,7 +19,7 @@
                             <input type="search" class="form-control form-control-lg" placeholder="{{ my_lang.search_form.prefil}}" name="query">
                           </div>
                           <div class="col-12 col-md-3">
-                            <button type="submit" class="btn btn-block btn-lg btn-primary">{{ my_lang.search_form.button }}</button>
+                            <button type="submit" class="btn btn-block btn-lg btn-primary transkibus_search-button">{{ my_lang.search_form.button }}</button>
                           </div>
                         </div>
                       </form>
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div class="card">
+        <div class="card transkribus_hits-container">
             <div class="card-header" style="text-align: center">
                 {% if 'query' in request.GET %}
                     <h1>
@@ -50,7 +50,7 @@
             <div class="card body">
                 <div class="row">
                     <div class="col-4">
-                        <div class="card">
+                        <div class="card transkribus_facets-container">
                             <div class="card-header">
                                 <h3>{{ my_lang.hits.facet_header }}</h3>
                             </div>
@@ -61,11 +61,13 @@
                                             <h3>
                                                 {{ my_lang.hits.facet_doc_title }}
                                             </h3>
+                                            <ul class="transkribus_facets-list">
                                                 {% for y in x.facetMap.entry %}
-                                                    <li>
-                                                        <a href="{{ base_url }}&filter={{ x.facet_field }}:{{y.key}}">{{ y.key }}</a>: {{ y.value }}
+                                                    <li class="transkribus_facet">
+                                                        <a class="transkribus_facet-field" href="{{ base_url }}&filter={{ x.facet_field }}:{{y.key}}">{{ y.key }}</a><span class="transkribus_facet-field-separator">:</span> <span class="transkribus_facet-field-count">{{ y.value }}</span>
                                                     </li>
                                                 {% endfor %}
+                                            </ul>
                                         {% endif %}
                                     {% endif %}
                                 {% endfor %}
@@ -73,25 +75,28 @@
                         </div>
                     </div>
                     <div class="col-8">
-                        <div class="card">
+                        <div class="card transkribus_hits">
                             <div class="card-header">
                                 <h3>{{ my_lang.hits.kwic_header }}</h3>
                             </div>
                             <div class="card-body">
                                 {% for x in trp_result.pageHits.PageHit %}
-                                    <div>
-                                        {{ x.highlights|first|safe }} <br />
-                                        <ul>
-                                            <li>
-                                                {{ my_lang.hits.result_col }}: {{ x.collectionIds.collectionId|first}}
+                                    <div class="transkribus_hit">
+                                        <p class="transkribus_kwic">{{ x.highlights|first|safe }}</p>
+                                        <ul class="transkribus_hit-info">
+                                            <li class="transkribus_hit-info-collection">
+                                                <span class="transkribus_hit-info-label">{{ my_lang.hits.result_col }}</span><span class="transkribus_hit-info-separator">:</span> <span class="transkribus_hit-info-value">{{ x.collectionIds.collectionId|first}}</span>
                                             </li>
-                                            <li>
-                                                {{ my_lang.hits.result_doc }}: {{ x.docTitle }}; ID: {{ x.docId }}
+                                            <li class="transkribus_hit-info-doc">
+                                                <span class="transkribus_hit-info-label">{{ my_lang.hits.result_doc }}</span><span class="transkribus_hit-info-separator">:</span> <span class="transkribus_hit-info-value">{{ x.docTitle }}</span>
                                             </li>
-                                            <li>
-                                                {{ my_lang.hits.result_page }}: {{ x.pageNr }}
+                                            <li class="transkribus_hit-info-doc-id">
+                                              <span class="transkribus_hit-info-label">ID</span><span class="transkribus_hit-info-separator">:</span> <span class="transkribus_hit-info-value">{{ x.docId }}</span>
                                             </li>
-                                            <li>
+                                            <li class="transkribus_hit-info-page">
+                                                <span class="transkribus_hit-info-label">{{ my_lang.hits.result_page }}</span><span class="transkribus_hit-info-separator">:</span> <span class="transkribus_hit-info-value">{{ x.pageNr }}</span>
+                                            </li>
+                                            <li class="transkribus_hit-info-goto">
                                                 <a href="{% url 'transkribus:trp_page' col_id=x.collectionIds.collectionId|first  doc_id=x.docId page_id=x.pageNr %}">{{ my_lang.hits.result_link }}</a>
                                             </li>
                                         </ul>
