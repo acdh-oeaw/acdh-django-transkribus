@@ -3,6 +3,13 @@
 History
 -------
 
+0.3.0 (2019-10-24)
+++++++++++++++++++
+
+* more translations
+* transkribus-css classes added to templates
+* added TrpBaseModel
+
 0.2.0 (2019-10-09)
 ++++++++++++++++++
 

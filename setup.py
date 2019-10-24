@@ -49,8 +49,8 @@ setup(
     version=version,
     description="""django app for interacting with the Transkribus-API""",
     long_description=readme + '\n\n' + history,
-    author='Peter Andorfer',
-    author_email='peter.andorfer@oeaw.ac.at',
+    author='Peter Andorfer, Ingo Börner',
+    author_email='peter.andorfer@oeaw.ac.at, ingo.boerner@oeaw.ac.at',
     url='https://github.com/acdh-oeaw/acdh-django-transkribus',
     packages=[
         'transkribus',
