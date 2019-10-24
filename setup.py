@@ -58,8 +58,8 @@ setup(
     include_package_data=True,
     install_requires=[
         'requests',
-        'lxml'
-        'django'
+        'lxml',
+        'django',
     ],
     license="MIT",
     zip_safe=False,
