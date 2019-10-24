@@ -12,13 +12,13 @@
                 </li>
             </ol>
         </nav>
-        <div class="card">
+        <div class="card transkribus_documents">
             <div class="card-header" style="text-align: center">
-                <h1>
+                <h1 class="transkribus_collection-title">
                     {{ collection.colName }}
                 </h1>
-                <h3>{{ nr_docs }} {{ my_lang.docs.doc_plural }}</h3>
-                <h4>{{ collection.description }}</h4>
+                <h3 class="transkribus_collection-pagecount">{{ nr_docs }} {{ my_lang.docs.doc_plural }}</h3>
+                <h4 class="transkribus_collection-description">{{ collection.description }}</h4>
             </div>
             <div class="card body">
                 <table class="table">
@@ -37,16 +37,16 @@
                     </thead>
                     <tbody>
                         {% for x in result %}
-                            <tr>
-                                <td>
+                            <tr class="transkribus_document" data-docId="{{x.docId}}">
+                                <td class="transkribus_document-title">
                                     <a href="{% url 'transkribus:trp_page' col_id=col_id doc_id=x.docId page_id=1 %}">
                                         {{ x.title }}
                                     </a>
                                 </td>
-                                <td>
+                                <td class="transkribus_document-pagecount">
                                     {{ x.nrOfPages }}
                                 </td>
-                                <td>
+                                <td class="transkribus_document-preview">
                                     <a href="{% url 'transkribus:trp_document' col_id=col_id doc_id=x.docId %}">
                                         <img src="{{ x.thumbUrl }}" />
                                     </a>
