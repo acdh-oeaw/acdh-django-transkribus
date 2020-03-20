@@ -3,6 +3,11 @@
 History
 -------
 
+1.0.0 (2020-03-20)
+++++++++++++++++++
+
+* load staticfiles -> load static to be Django > 3.x compatible
+
 0.3.0 (2019-10-24)
 ++++++++++++++++++
 
