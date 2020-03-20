@@ -3,6 +3,12 @@
 History
 -------
 
+1.1.0 (2020-03-20)
+++++++++++++++++++
+
+* added possiblity to restrict access to non logged-in users to Facsimiles by adding TRANSKRIBUS_PUBLIC = False to settings
+
+
 1.0.0 (2020-03-20)
 ++++++++++++++++++
 

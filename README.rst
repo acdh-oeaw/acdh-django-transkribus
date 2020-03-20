@@ -27,8 +27,14 @@ Add your user name and password and the ID of the collection you'd like to expos
         "col_id": "43497"
     }
 
+To make the faksimiles only accessible for logged in user, you need to add the following flag to your settings:
+
 
 For custom translations you'd need to add following dict to your settings:
+
+.. code-block:: python
+
+    TRANSKRIBUS_PUBLIC = True
 
 
 .. code-block:: python

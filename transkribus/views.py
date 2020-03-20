@@ -1,5 +1,7 @@
-from django.shortcuts import render
 from django.conf import settings
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.conf import settings
+from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import TemplateView
 
@@ -16,6 +18,8 @@ from transkribus.trp_utils import (
     trp_get_doc_overview_md,
     crowd_base_url
 )
+
+TRP_PUBLIC = getattr(settings, 'TRANSKRIBUS_PUBLIC', False)
 
 try:
     APIS_OSD_JS = settings.APIS_OSD_JS
@@ -79,8 +83,14 @@ class TrpSearchResultView(TemplateView):
             return context
 
 
-class TrpListView(TemplateView):
+class TrpListView(UserPassesTestMixin, TemplateView):
     template_name = 'transkribus/documents.html'
+
+    def test_func(self):
+        if self.request.user.is_authenticated or TRP_PUBLIC:
+            return True
+        else:
+            return False
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -95,8 +105,14 @@ class TrpListView(TemplateView):
         return context
 
 
-class TrpDocumentView(TemplateView):
+class TrpDocumentView(UserPassesTestMixin, TemplateView):
     template_name = 'transkribus/doc_overview.html'
+
+    def test_func(self):
+        if self.request.user.is_authenticated or TRP_PUBLIC:
+            return True
+        else:
+            return False
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -113,8 +129,14 @@ class TrpDocumentView(TemplateView):
         return context
 
 
-class TrpPageView(TemplateView):
+class TrpPageView(UserPassesTestMixin, TemplateView):
     template_name = 'transkribus/page.html'
+
+    def test_func(self):
+        if self.request.user.is_authenticated or TRP_PUBLIC:
+            return True
+        else:
+            return False
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

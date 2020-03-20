@@ -64,7 +64,7 @@
                                             <ul class="transkribus_facets-list">
                                                 {% for y in x.facetMap.entry %}
                                                     <li class="transkribus_facet">
-                                                        <a class="transkribus_facet-field" href="{{ base_url }}&filter={{ x.facet_field }}:{{y.key}}">{{ y.key }}</a><span class="transkribus_facet-field-separator">:</span> <span class="transkribus_facet-field-count">{{ y.value }}</span>
+                                                        <a class="transkribus_facet-field" href='{{ base_url }}&filter={{ x.facet_field }}:"{{y.key}}"'>{{ y.key }}</a><span class="transkribus_facet-field-separator">:</span> <span class="transkribus_facet-field-count">{{ y.value }}</span>
                                                     </li>
                                                 {% endfor %}
                                             </ul>
