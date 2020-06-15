@@ -79,6 +79,40 @@ def trp_ft_search(base_url=base_url, user=user, pw=pw, **kwargs):
         return response.ok
 
 
+def trp_list_collections(base_url=base_url, user=user, pw=pw):
+    """ Helper function to list all collections
+        :param base_url: The base URL of the TRANSKRIBUS API
+        :param user: Your TRANSKRIBUS user name, e.g. my.mail@whatever.com
+        :param pw: Your TRANSKRIBUS password
+        :return: A dict with listing the collections
+    """
+    url = f"{base_url}/collections/list"
+    session_id = trp_login(user, pw, base_url=base_url)
+    headers = {
+        'cookie': "JSESSIONID={}".format(session_id),
+    }
+    response = requests.request("GET", url, headers=headers)
+    return response.json()
+
+
+def trp_list_docs(col_id, base_url=base_url, user=user, pw=pw):
+    """ Helper function to list all documents in a given collection
+        :param col_id: Collection ID
+        :param base_url: The base URL of the TRANSKRIBUS API
+        :param user: Your TRANSKRIBUS user name, e.g. my.mail@whatever.com
+        :param pw: Your TRANSKRIBUS password
+        :return: A dict with listing the collections
+    """
+    url = f"{base_url}/collections/{col_id}/list"
+    print(url)
+    session_id = trp_login(user, pw, base_url=base_url)
+    headers = {
+        'cookie': "JSESSIONID={}".format(session_id),
+    }
+    response = requests.request("GET", url, headers=headers)
+    return response.json()
+
+
 def trp_get_doc_md(doc_id, base_url=base_url, col_id=col_id, user=user, pw=pw):
     """ Helper function to interact with TRANSKRIBUS document metadata endpoint
         :param user: Your TRANSKRIBUS user name, e.g. my.mail@whatever.com

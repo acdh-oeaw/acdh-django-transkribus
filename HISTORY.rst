@@ -3,6 +3,11 @@
 History
 -------
 
+1.2.0 (2020-06-15)
+++++++++++++++++++
+
+* added to new function to list collections per user and documents per collection
+
 1.1.0 (2020-03-20)
 ++++++++++++++++++
 
